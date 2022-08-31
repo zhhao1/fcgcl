@@ -1,0 +1,98 @@
+# network architecture
+# encoder related
+elayers-speech: 6
+elayers-text-src: 6
+elayers-text-tgt: 0
+elayers-shared: 0
+eunits: 2048
+# decoder related
+dlayers: 6
+dunits: 2048
+# attention related
+adim: 256
+aheads: 4
+
+#log name
+name: MUST-C/cl_test
+
+# label smoothing
+lsm-weight: 0.1
+
+#preprocess_conf
+
+#contrastive_loss
+reconstruct: false
+joint-training: true
+moco: false
+pretrain: false  #if true, the criterion need to be set with 'loss', and cross must be true 
+pure-st: false
+cl-loss-scale: 1.0
+temperature: 0.12
+estimator: simclr
+remove-pad: false #remove pad when averaging the encoder output
+num-negatives: 1000 # batch as the num-negatives
+
+#projection head
+mlp-layers: 3 #hidden layer: 3-2
+output-dim: 128 #mlp output dim
+hidden-dim: 512 #mlp hidden dim
+share: true #whether share projection head or not
+projection-type: non_linear #linear or non_linear
+norm: false #layernorm the mlp hidden layer
+mlp-droprate: 0.0 
+
+#online kd
+online-KD: true
+
+#loss weight
+a: 0.4
+b: 1.0
+c: 1.0
+
+#dropdim
+dropdim-speech-encoder: true
+dropdim-text-src-encoder: false
+dropdim-text-tgt-encoder: false
+dropdim-share-encoder: false
+dropdim-decoder: true
+mask-random: true
+mask-span: false  #mask col with mean values
+mask-prob: 0.05
+mask-value: mean
+mask-position: col
+K: 30
+block-number: 1
+
+# minibatch related
+batch-size: 140
+maxlen-in: 512  # if input length  > maxlen-in, batchsize is automatically reduced
+maxlen-out: 150 # if output length > maxlen-out, batchsize is automatically reduced
+
+# optimization related
+automatic-optimization: true
+criterion: acc #acc or loss
+sortagrad: 0 # Feed samples from shortest to longest ; -1: enabled for all epochs, 0: disabled
+opt: noam
+accumulate-batches: 1
+gradient-clip-threshold: 5
+gradient-clip-val: 5 #if automatic-optimization==false, set this to zero 
+patience: 3
+max-epochs: 100
+
+# transformer specific setting
+transformer-input-layer: linear     # encoder input architecture type
+transformer-scale: 5.0
+transformer-warmup-steps: 25000
+transformer-attn-dropout-rate: 0.0
+transformer-length-normalized-loss: false
+transformer-init: pytorch
+
+# pre-training related
+enc-model-prefix: model
+dec-model-prefix: model
+text-src-model-prefix: model
+text-src-init: ../mt/logs/MUST-C/en-de/version_2/checkpoints/average_top_5_acc.ckpt
+enc-init: ../mt/logs/MUST-C/en-de/version_2/checkpoints/average_top_5_acc.ckpt
+dec-init: ../mt/logs/MUST-C/en-de/version_2/checkpoints/average_top_5_acc.ckpt
+enc-init-mods: encoder.encoders,encoder.after_norm
+dec-init-mods: decoder.embed,decoder.decoders,decoder.after_norm,decoder.output_layer
