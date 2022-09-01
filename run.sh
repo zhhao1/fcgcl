@@ -14,7 +14,7 @@ export PYTHONFAULTHANDLER=1
 train_config=conf/train.yaml
 data_name=MUST-C/en-de
 dict=../lang_1spm/train_sp.en-de.de_bpe8000_units_tc.txt
-train_json=../data/${data_name}/wav2vec/data/dev/data_bpe8000.lc.rm_tc.json
+train_json=../data/${data_name}/wav2vec/data/train/data_bpe8000.lc.rm_tc.json
 valid_json=../data/${data_name}/wav2vec/data/dev/data_bpe8000.lc.rm_tc.json
 
 srun python local/st_train.py --config ${train_config} \
