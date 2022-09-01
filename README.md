@@ -9,7 +9,7 @@ Our code is based on [Espnet](https://github.com/espnet/espnet) and use [PyTorch
 # Data Preparation
 1. Download the [wav2vec 2.0](https://huggingface.co/facebook/wav2vec2-large-960h/tree/main) model published in Huggingface.
 2. We extract feature bases on wav2vec 2.0 before training. The scripts are saved on ./scripts/.
-3. Save to json file. This is consistent with Espnet. We upload the [dev.json](https://pan.baidu.com/s/1mW037B11Ntl77CZ2vOzlOQ) and the corresponding feature for reference to quickly debug the code. The extraction code is 828f.
+3. Save to json file. This is consistent with Espnet. We upload the [dev.json](https://pan.baidu.com/s/1SovS0B8tUEDfUWdMVLW3rA?pwd=votd) and the corresponding feature for reference to quickly debug the code.
 
 # Model Training
 
